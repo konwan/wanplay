@@ -413,17 +413,20 @@ class DataCheck(object) :
             file_path = hadoop_path + "/" + i
             cmd = "hadoop fs -du {} ".format(file_path)
             status, output = commands.getstatusoutput(cmd)
-        
+
             if status != 0 :
-                self.error_msg += "{}{}{}".format("[hadoop] - ", file_path, " is not exist ")
+                self.error_msg += "{}{}{}\n".format("[hadoop] - ", file_path, " is not exist ")
             else :
-                line = output.split("\n")
-                for i in line :
-                    size = i[0:i.index("/")].replace(" ","")
-                    path = i[i.index("/"):]
-           
-                    if size == "0" :
-                        self.error_msg += "{}{}{}".format("[hadoop] - ", path, " is empty ")
+                if output == "" :
+                    self.error_msg += "{}{}{}\n".format("[hadoop] - ", file_path, " is empty ")
+                else :
+                    line = output.split("\n")
+                    for i in line :
+                        size = i[0:i.index("/")].replace(" ","")
+                        path = i[i.index("/"):]
+
+                        if size == "0" :
+                            self.error_msg += "{}{}{}\n".format("[hadoop] - ", path, " is empty ")
         
 def writefile(filename, msg) :
     file = open(filename, "a")
