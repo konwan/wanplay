@@ -234,7 +234,7 @@ class DataCheck(object) :
             # only calculate correct date format data 
             if self.checkdealdetail :
                 if self.now_dir == "header" :
-                    if self.tmpline[2] != "null" :
+                    if self.tmpline[2] != "null" and self.tmpline[2] != "" :
                         member = "-999"
                         self.customer_cnt += 1
                     else :
