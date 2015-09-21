@@ -1,0 +1,9 @@
+CCC	2652.6314646
+kgsupermarket^C001	939.083086185
+kgsupermarket^C002	964.997961847
+kgsupermarket^C003	675.098599494
+kgsupermarket^C004	1254.49876897
+kgsupermarket^C005	2141.38443251
+kgsupermarket^C006	874.355294989
+kgsupermarket^C007	2788.14863222
+kgsupermarket^C008	1582.48026679

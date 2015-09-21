@@ -1,0 +1,13 @@
+    1  ls
+    2  cd ~
+    3  cd prjhub/athena/modules/
+    4  ls -l
+    5  cat ../testdata/data_prepare.txt | ./pareto_mapper_data.py 1 |./pareto_reducer_data.py 1 |./pareto_mapper_data.py 2 |./pareto_reducer_data.py 2 0.0
+    6  cd app
+    7  cat ../testdata/data_prepare.txt | ./pareto_mapper_data.py 1 |./pareto_reducer_data.py 1 |./pareto_mapper_data.py 2 |./pareto_reducer_data.py 2 0.0
+    8  cat ../testdata/data_mean.txt | ./pareto_reducer_data.py 3 _ !
+    9  cat ../testdata/data_tag.txt | ./pareto_mapper_data.py 4 _ ! . | ./pareto_reducer_data.py 4
+   10  cat ../testdata/data_tag.txt | ./pareto_mapper_data.py 4 _ ! .
+   11  cat ../testdata/data_tag.txt | ./pareto_mapper_data.py 4 _ ! . | ./pareto_reducer_data.py 4
+   12  history -> cmd.txt
+   13  history |tail -n 2000 -> cmd.txt

@@ -1,0 +1,15 @@
+kgsupermarket_.	150
+kgsupermarket_!	200
+kgsupermarket_1	100
+kgsupermarket_2	200
+kgsupermarket^C011_!	50
+kgsupermarket^C011_.	350
+kgsupermarket^C011_0	200
+kgsupermarket^C011_1	600
+kgsupermarket^C011_3	100
+kgsupermarket^C011_7	500
+kgsupermarket^C021_.	200
+kgsupermarket^C021_!	350
+kgsupermarket^C021_0	100
+kgsupermarket^C021_3	400
+kgsupermarket^C021_9	300
