@@ -1,0 +1,3 @@
+python entropy.py EntropyHv --use-hadoop --src /user/cindy/entropy/testdata/entropy.txt --dest /user/cindy/entropy/testdata/entropy
+
+python entropy_luigi.py Pivot --use-hadoop --src /user/cindy/entropy/testdata/entropy.txt --dest /user/cindy/entropy/testdata/pivot --inputcol 5
