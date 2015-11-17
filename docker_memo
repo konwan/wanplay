@@ -37,7 +37,7 @@ docker commit -m "說明" -a “修改者" 哪個containerid imagename
 [extra] 
 ipython notebook --ip=sandbox --port=8899 
 
-
+--------------------------------------------------------------------------------------------
 [problems]
 4、替換系統原生的Python
 安裝完的Python 2.7.8的執行檔位在/usr/local/python/bin。
