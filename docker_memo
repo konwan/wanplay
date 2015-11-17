@@ -36,3 +36,52 @@ docker commit -m "說明" -a “修改者" 哪個containerid imagename
 
 [extra] 
 ipython notebook --ip=sandbox --port=8899 
+
+
+[problems]
+4、替換系統原生的Python
+安裝完的Python 2.7.8的執行檔位在/usr/local/python/bin。
+因此需要將系統原生的Python重新命名為python2.6，建立新的Python到/usr/bin目錄下的連結。
+ln -s /usr/local/bin/python2.7 /usr/bin/python
+
+5、修正yum
+因為系統用的yum功能需要Python2.6版本才能執行
+vim /usr/bin/yum的第一行將 #!/usr/bin/python修改為 #!/usr/bin/python2.6
+
+6、安装pip
+pip為Python的自動化套件安裝工具，在安裝ipyhton及ipython notebook時會需要用到。
+
+wget https://bootstrap.pypa.io/get-pip.py --no-check-certificate
+python get-pip.py
+因為修改了Python的安裝目錄，所以Python的擴充套件的會被安裝到/usr/local/python/bin的目錄下，為了能夠直接運行這些套件，利用鏈結的方式指到正確的位置上。
+
+ln -sf /usr/local/python/bin/pip /usr/bin/pip
+ln -sf /usr/local/python/bin/easy_install /usr/bin/easy_install
+
+7、安裝IPython
+利用pip安裝ipython並將執行檔鏈結到/usr/bin目錄下以方便直接執行。
+
+pip install ipython
+ln -s /usr/local/python/bin/ipython /usr/bin/ipython
+8、安裝readline擴充套件
+強化ipython功能的擴充套件
+
+yum install readline-devel
+yum install patch
+pip install readline
+9、利用pip功能安裝ipython notebook
+
+pip install "ipython[notebook]"
+10、關閉會用到的防火牆以及開啟ipython notebook
+
+service iptables stop
+ipython notebook --ip=安裝ipython notebook的主機ip --port=無其他使用的port
+
+
+@@@@@@@@@@@@@@@@@@@
+ipython 4 no —profile option 
+cp /.ipython/profile_pyspark/ipython_kernel_config.py /.ipython/profile_default/
+and add above config content on the tail
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+
