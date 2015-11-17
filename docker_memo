@@ -1,0 +1,38 @@
+https://philipzheng.gitbooks.io/docker_practice/content/install/centos.html
+
+
+[install] 
+yum install http://mirrors.yun-idc.com/epel/6/i386/epel-release-6-8.noarch.rpm
+yum install docker-io
+service docker start
+chkconfig docker on               
+show info
+docker run --name "cindy" -it -h sandbox cindy/spark1.5.1 bash
+docker run -i -t -h sandbox sequenceiq/spark:1.5.1 bash
+docker inspect cindy| grep IPAddress
+iptables -t nat -A  DOCKER -p tcp --dport 8899 -j DNAT --to-destination 172.17.0.12:8899
+iptables -t nat -A  DOCKER -p tcp --dport 9119 -j DNAT --to-destination 172.17.0.15:9119
+
+
+[image]
+docker images                          #list
+docker rmi <imageid>
+docker rmi -f sequenceiq/spark:1.5.1 
+docker ps --before some container -q | xargs docker rm
+docker save sequenceiq/spark:1.5.1  > spark1.5.1.tar
+
+
+[container]
+docker ps -a                           #list 
+docker rm <containerid>
+docker start cindy(name)                
+docker attach cindy(name)               
+
+
+[docker-hub] 
+docker pull sequenceiq/spark:1.5.1    #get repository   
+docker commit -m "install ipython" -a "cindy" d3e85ee6458b cindy_spark:1.5.1
+docker commit -m "說明" -a “修改者" 哪個containerid imagename
+
+[extra] 
+ipython notebook --ip=sandbox --port=8899 
