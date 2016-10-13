@@ -1,0 +1,25 @@
+1.split columns and get line_num, column_num 
+```
+awk -F "seperator" 'column_num!=5 {print line_num, column_num, all_columns, first_column, last_column}'
+cat xxx.csv |awk -F ","  'NF!=5 {print NR, NF, $n, $1, $NF}'
+```
+
+2.list data size  
+```
+ll -al -h test.txt
+-rw-rw-r-- 1 cindy cindy 1.4K Oct 13 15:43 test.txt
+```
+
+3.count lines
+```
+wc test.txt
+21   63   1342 test.txt
+列   字數  位元數
+
+wc -l test.txt
+21 test.txt
+
+cat test.txt |wc -l
+21
+```
+
