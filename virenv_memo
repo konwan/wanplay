@@ -1,0 +1,146 @@
+http://www.jianshu.com/p/51140800e8b4
+
+Mac配置虚拟环境Virtualenv，安装Python科学计算包
+
+virtualenv 可以用来建立一个专属于项目的python环境，保持一个干净的环境。只需要通过命令创建一个虚拟环境，不用的时候通过命令退出，删除。
+
+下面介绍一下安装方法：
+
+安装 virtualenv
+安装 virtualenvwrapper
+安装 Numpy，Scipy，Matplotlib 等
+安装 virtualenv
+$ sudo pip install virtualenv
+然后建立一个测试目录：
+
+$ mkdir testvirtual
+$ cd testvirtual
+就可以成功创建一个虚拟环境 env1：
+
+$ virtualenv env1
+安装 virtualenvwrapper
+Virtaulenvwrapper是virtualenv的扩展包，可以更方便地新增，删除，复制，切换虚拟环境。
+
+运行下面命令就安装成功了，默认安装在 /usr/local/bin下面：
+
+$ sudo easy_install virtualenvwrapper
+接下来创建一个文件夹，用来存放所有的虚拟环境：
+
+$ mkdir ~/workspaces
+$ cd ~/workspaces
+但是在使用virtualenvwrapper之前，要运行virtualenvwrapper.sh文件，需要设置环境变量，也就是把下面两行代码写进 ~/.bashrc里，但是我的电脑里并没有~/.bashrc，查了一下解决办法，比如自己创建个bashrc写进去两行代码，也不管用。
+
+export WORKON_HOME=~/workspaces
+source /usr/local/bin/virtualenvwrapper.sh
+
+source  ~/.bashrc
+
+```
+DataTeamdeMacBook-Pro:virenv data$ source ~/.bashrc
+virtualenvwrapper.user_scripts creating /Users/data/Desktop/cindy/gomi/virenv/initialize
+virtualenvwrapper.user_scripts creating /Users/data/Desktop/cindy/gomi/virenv/premkvirtualenv
+virtualenvwrapper.user_scripts creating /Users/data/Desktop/cindy/gomi/virenv/postmkvirtualenv
+virtualenvwrapper.user_scripts creating /Users/data/Desktop/cindy/gomi/virenv/prermvirtualenv
+virtualenvwrapper.user_scripts creating /Users/data/Desktop/cindy/gomi/virenv/postrmvirtualenv
+virtualenvwrapper.user_scripts creating /Users/data/Desktop/cindy/gomi/virenv/predeactivate
+virtualenvwrapper.user_scripts creating /Users/data/Desktop/cindy/gomi/virenv/postdeactivate
+virtualenvwrapper.user_scripts creating /Users/data/Desktop/cindy/gomi/virenv/preactivate
+virtualenvwrapper.user_scripts creating /Users/data/Desktop/cindy/gomi/virenv/postactivate
+virtualenvwrapper.user_scripts creating /Users/data/Desktop/cindy/gomi/virenv/get_env_details
+virtualenvwrapper.user_scripts creating /Users/data/Desktop/cindy/gomi/virenv/premkproject
+virtualenvwrapper.user_scripts creating /Users/data/Desktop/cindy/gomi/virenv/postmkproject
+```
+
+最后的办法就是，直接在命令行写，成功了：
+
+$ export WORKON_HOME=~/workspaces
+$ source /usr/local/bin/virtualenvwrapper.sh
+接下来，创建一个或者多个虚拟环境 env1，env2：
+
+$ mkvirtualenv gql
+成功后，当前路径前面就会有 (gql)
+
+```
+DataTeamdeMacBook-Pro:virenv data$ mkvirtualenv gql
+New python executable in /Users/data/Desktop/cindy/gomi/virenv/gql/bin/python
+Installing setuptools, pip, wheel...done.
+virtualenvwrapper.user_scripts creating /Users/data/Desktop/cindy/gomi/virenv/gql/bin/predeactivate
+virtualenvwrapper.user_scripts creating /Users/data/Desktop/cindy/gomi/virenv/gql/bin/postdeactivate
+virtualenvwrapper.user_scripts creating /Users/data/Desktop/cindy/gomi/virenv/gql/bin/preactivate
+virtualenvwrapper.user_scripts creating /Users/data/Desktop/cindy/gomi/virenv/gql/bin/postactivate
+virtualenvwrapper.user_scripts creating /Users/data/Desktop/cindy/gomi/virenv/gql/bin/get_env_details
+(gql) DataTeamdeMacBook-Pro:virenv data$
+```
+$ mkvirtualenv env2
+下面是一些基本操作命令
+
+列出虚拟环境：
+
+$ lsvirtualenv -b
+env1
+env2
+切换虚拟环境：
+
+$ workon env1
+查看环境里安装了哪些包：
+
+$ lssitepackages
+进入当前环境：
+
+$ cdvirtualenv
+进入当前环境的site-packages：
+
+$ cdsitepackages
+$ cdsitepackages pip
+复制虚拟环境：
+
+$ cpvirtualenv env1 env3
+Copying env1 as env3...
+退出虚拟环境：
+
+$ deactivate
+删除虚拟环境：
+
+$ rmvirtualenv env2
+Removing env2...
+安装 Numpy，Scipy，Matplotlib 等
+接下来安装Python的各种包，就比较顺畅了，比如安在env1上：
+
+$ workon env1
+安装numpy
+pip install numpy
+
+安装scipy
+$ pip install scipy
+
+安装matplotlib
+$ pip install matplotlib
+
+安装ipython
+$ pip install ipython[all]
+
+安装pandas
+$ pip install pandas
+
+安装Statsmodel
+$ pip install statsmodel
+
+安装scikit-learn
+$ pip install scikit-learn
+
+按照顺序全部安装成功，后续就可以在虚拟环境上做分析了。
+
+以后每次进入虚拟环境就执行如下代码即可，
+不过因为我的环境变量没有写进bashrc里，所以都要多执行两行：
+
+$ cd ~/workspaces
+$ export WORKON_HOME=~/workspaces
+$ source /usr/local/bin/virtualenvwrapper.sh
+$ workon env1
+退出虚拟环境就用
+
+$ deactivate
+
+文／不会停的蜗牛（简书作者）
+原文链接：http://www.jianshu.com/p/51140800e8b4
+著作权归作者所有，转载请联系作者获得授权，并标注“简书作者”。
