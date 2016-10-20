@@ -1,0 +1,67 @@
+#[remove python 3.5]#
+
+http://stackoverflow.com/questions/3819449/how-to-uninstall-python-2-7-on-a-mac-os-x-10-6-4/3819829#3819829
+
+sudo rm -rf /Library/Frameworks/Python.framework/Versions/3.5
+
+sudo rm -rf "/Applications/Python 3.5"
+
+Remove the symbolic links in /usr/local/bin that point to this Python version see 
+ls -l /usr/local/bin | grep '../Library/Frameworks/Python.framework/Versions/3.5' 
+
+and then run the following command to remove all the links:
+cd /usr/local/bin/
+ls -l /usr/local/bin | grep '../Library/Frameworks/Python.framework/Versions/3.5' | awk '{print $9}' | tr -d @ | xargs rm
+If necessary, edit your shell profile file(s) to remove adding /Library/Frameworks/Python.framework/Versions/3.5 
+to your PATH environment file. Depending on which shell you use, 
+any of the following files may have been modified: 
+~/.bash_login, ~/.bash_profile, ~/.cshrc, ~/.profile, ~/.tcshrc, and/or ~/.zprofile.
+
+
+
+#[install pyenv]
+
+http://marshal.ohtly.com/2016/07/15/installing-pyenv-on-mac-os/
+Mac环境下自带python，目前版本是2.7.10。
+在Mac OS下安装，主要参考Homebrew on Mac OS X。
+前提是已经安装了brew。执行两条命令安装：
+
+brew update
+brew install pyenv
+
+然后，用文本编辑器打开~/.bash_profile文件。我用的是atom(有关atom的基本使用，见使用Atom替代Sublime)，可在命令行下直接：
+
+atom ~/.bash_profile
+然后在该文件末尾加入：
+
+eval "$(pyenv init -)"
+再执行命令重新加载.bash_profile：
+
+source ~/.bash_profile
+安装python3当前最新版本3.5.2：
+
+pyenv install 3.5.2
+如果在安装中有类似这样的报错：
+
+zipimport.ZipImportError: can't decompress data; zlib not available
+需要安装Xcode命令行工具，运行下面命令安装：
+
+xcode-select --install
+然后，可设置全局版本到3.5.2:
+
+pyenv global 3.5.2
+然后再执行命令查看版本是否生效:
+
+pythone -V
+如果安装pyenv出现问题，卸载也很简单，直接删除~/.pyenv目录即可。也要去掉.bash_profile加入的语句。
+
+如果只是希望当前项目使用指定版本，比如：
+
+全局还是用系统自带的，可以这样设置：
+
+1
+pyenv global system
+当前目录下使用python 3.5.2:
+
+1
+pyenv local 3.5.2
