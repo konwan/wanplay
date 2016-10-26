@@ -39,12 +39,59 @@ source ~/.bash_profile
 
 pyenv install <version> #安装特定版本的 Python
 当我的系统 Python 版本是 2.7, 但是有个 py3 的專案需要用 Python3 来运行的时候:
-cd py3                 #进入项目目录
-pyenv local 3.3.0      #将当前目录下的Python环境切换为3.3.0
-pyenv version          #运行显示通过pyenv设置之后的python版本, 得到结果是3.3.0 
-python --version       #查看Python版本, 得到结果也是3.3.0
+$ cd py3                 #进入项目目录
+$ pyenv local 3.3.0      #将当前目录下的Python环境切换为3.3.0
+$ pyenv version          #运行显示通过pyenv设置之后的python版本, 得到结果是3.3.0 
+$ python --version       #查看Python版本, 得到结果也是3.3.0
 
+$ mkdir myproject
+$ cd myproject
+$ pyenv local venv-3.5.1
 
+pyenv-virtualenv: deactivate
+pyenv-virtualenv: activate venv-3.5.1
 
 
 [install virtualenv] 创建一个虚拟环境, 与系统环境以及其他 Python 环境隔离
+pip install virtualenv
+
+創建項目的虛擬環境 
+$ mkdir test && cd test
+$ virtualenv new_env
+執行後，在本地會生成一個與虛擬環境同名的文件夾，包含 Python 可執行文件和 pip 庫的拷貝，可用於安裝其他包。
+指定虛擬環境所使用的 Python 版本，但前提是系統中已經安裝了該版本：
+$ virtualenv -p /usr/bin/python2.7 new_env
+進入虛擬環境目錄，啟動虛擬環境。
+$ cd new_env
+$ source bin/activate # Windows 系統下運行 Scripts\
+$ python -V
+$ deactivate  #退出
+
+[install virtualenvwrapper]   Virtualenv 的 extension，可使虛擬環境的管理變得更容易
+$ pip install virtualenvwrapper
+
+設置環境變量
+把下面兩行添加到~/.bashrc（或者~/.zshrc）里。
+if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
+export WORKON_HOME=/Users/data/Desktop/cindy/gomi/virenv
+source /usr/local/bin/virtualenvwrapper.sh
+fi
+其中，.virtualenvs 是可以自定義的虛擬環境管理目錄。
+然後執行：source ~/.bashrc，就可以使用 virtualenvwrapper 了
+
+$ source /usr/local/bin/virtualenvwrapper.sh  #use virtualenvwrapper after this step
+
+創建虛擬環境：
+mkvirtualenv venv
+注意：mkvirtualenv 也可以使用 virtualenv 的參數，比如 –python 來指定 Python 版本。創建虛擬環境後，會自動切換到此虛擬環境裡。虛擬環境目錄都在 WORKON_HOME 里。
+其他命令如下：
+lsvirtualenv -b # 列出虛擬環境
+workon [虛擬環境名稱] # 切換虛擬環境
+lssitepackages # 查看環境裡安裝了哪些包
+cdvirtualenv [子目錄名] # 進入當前環境的目錄
+cpvirtualenv [source] [dest] # 複製虛擬環境
+deactivate # 退出虛擬環境
+rmvirtualenv [虛擬環境名稱] # 刪除虛擬環境
+
+
+
