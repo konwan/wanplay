@@ -141,6 +141,9 @@ $ workon env1
 
 $ deactivate
 
-文／不会停的蜗牛（简书作者）
-原文链接：http://www.jianshu.com/p/51140800e8b4
-著作权归作者所有，转载请联系作者获得授权，并标注“简书作者”。
+$ mkdir myproject
+$ cd myproject
+$ pyenv local venv-3.5.1
+
+pyenv-virtualenv: deactivate
+pyenv-virtualenv: activate venv-3.5.1
