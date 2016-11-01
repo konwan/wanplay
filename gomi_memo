@@ -23,3 +23,7 @@ cat test.txt |wc -l
 21
 ```
 
+4.test pip package
+```
+python -c "import bs4; print bs4.__version__”
+```
