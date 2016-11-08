@@ -27,3 +27,8 @@ cat test.txt |wc -l
 ```
 python -c "import bs4; print bs4.__version__”
 ```
+
+5.get pid by port
+```
+sudo lsof -i :3306
+```
