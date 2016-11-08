@@ -34,6 +34,9 @@ docker pull sequenceiq/spark:1.5.1    #get repository
 docker commit -m "install ipython" -a "cindy" d3e85ee6458b cindy_spark:1.5.1
 docker commit -m "說明" -a “修改者" 哪個containerid imagename
 
+
+docker top <container>                  #get running process with container
+docker exec -it <container>  ps -aux    #get running process in container
 [extra] 
 ipython notebook --ip=sandbox --port=8899 
 
