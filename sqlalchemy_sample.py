@@ -2,7 +2,7 @@ import hashlib
 from sqlalchemy import create_engine
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import relationship, backref
+from sqlalchemy.orm import relationship, backref, sessionmaker
 
 
 """
@@ -40,7 +40,7 @@ class User(Base):
         # self.password = hashlib.sha1(password).hexdigest()
 
     def __repr__(self):
-        return "User('%s','%s', '%s')" % (self.name, self.username, self.password)
+        return "User('%s','%s', '%s')" % (self.name, self.name, self.password)
 
 
 if __name__ == '__main__':
@@ -56,17 +56,38 @@ if __name__ == '__main__':
 
     # create table
     """
-    
     在資料庫內建立起相對應的 users 表格。這個用來建立相對應表格以及建立與 Python 類別間的動作，是由 metadata 負責的。
     建立一個 User 類別的實例，並且列印出其所對應的 Python 類別與資料庫表格名稱，
     其結果為 Mapper|User|user 代表 User 類別映對到 user 資料表。
     此外，需要注意的是截至目前為止這筆資料仍尚未寫進資料庫內。
     """
     Base.metadata.create_all(engine)
-
+    Session = sessionmaker(bind=engine)
+    session = Session()
+    
     u1 = User("cindy","username","cindy")
     print ("Mapper:", u1.__mapper__)
 
+    """
+    有4種狀態 Transient, Pending, Persistent, Detached)。
+    只有進行 QUERY, COMMIT, FLUSH 時才會被寫入資料庫內。
+    進行 user1 的查詢時，SQLAlchemy 會先將 user_1 的資料寫入資料庫中，再進行查詢。所以其執行結果先出現了 INSERT，接著才出現 SELECT 。
+    接著判斷是否能夠查詢到 user_1 的資料， filter_by(name="user_1") 是對欄位名稱為 name 所下的查詢條件，first() 則是回傳查詢結果的第1筆。
+    使用 query() 方法時，若有查詢到結果會回傳 Query Object，若無則是回傳 None。
+    我們利用 session 的 rollback() 方法，將資料庫狀態回到尚未加入 user_1 時的狀態。
+    使用 session 的 commit() 方法，告訴 session 要直接將這筆資料寫入資料庫內，所以就不需等到要查詢時才會寫入到資料庫內
+    """
+    session.add(u1)
+    row = session.query(User).filter_by(name='cindy').first()
+    print (row)
+
+    session.rollback() # 資料庫回到新增 user1 之前的狀態
+
+    session.add(u1)
+    user_2 = User("jlin", "jeremy", "jjjjj")
+    session.add(user_2)
+    session.commit()
+    
     """ success info
     2016-11-10 16:34:17,782 INFO sqlalchemy.engine.base.Engine SELECT CAST('test plain returns' AS VARCHAR(60)) AS anon_1
     2016-11-10 16:34:17,783 INFO sqlalchemy.engine.base.Engine ()
@@ -86,4 +107,22 @@ if __name__ == '__main__':
     2016-11-10 16:34:17,785 INFO sqlalchemy.engine.base.Engine ()
     2016-11-10 16:34:17,786 INFO sqlalchemy.engine.base.Engine COMMIT
     Mapper: Mapper|User|users
+
+    2016-11-10 16:57:54,188 INFO sqlalchemy.engine.base.Engine BEGIN (implicit)
+    2016-11-10 16:57:54,189 INFO sqlalchemy.engine.base.Engine INSERT INTO users (name, password) VALUES (?, ?)
+    2016-11-10 16:57:54,189 INFO sqlalchemy.engine.base.Engine ('cindy', None)
+    2016-11-10 16:57:54,191 INFO sqlalchemy.engine.base.Engine 
+    SELECT users.id AS users_id, users.name AS users_name, users.password AS users_password
+    FROM users
+    WHERE users.name = ?
+    LIMIT ? OFFSET ?
+    2016-11-10 16:57:54,191 INFO sqlalchemy.engine.base.Engine ('cindy', 1, 0)
+    User('cindy','cindy', 'None')
+    2016-11-10 16:57:54,191 INFO sqlalchemy.engine.base.Engine ROLLBACK
+    2016-11-10 16:57:54,192 INFO sqlalchemy.engine.base.Engine BEGIN (implicit)
+    2016-11-10 16:57:54,192 INFO sqlalchemy.engine.base.Engine INSERT INTO users (id, name, password) VALUES (?, ?, ?)
+    2016-11-10 16:57:54,192 INFO sqlalchemy.engine.base.Engine (1, 'cindy', None)
+    2016-11-10 16:57:54,193 INFO sqlalchemy.engine.base.Engine INSERT INTO users (name, password) VALUES (?, ?)
+    2016-11-10 16:57:54,193 INFO sqlalchemy.engine.base.Engine ('jlin', None)
+    2016-11-10 16:57:54,193 INFO sqlalchemy.engine.base.Engine COMMIT
     """
