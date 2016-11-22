@@ -1,0 +1,14 @@
+>>> from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+>>> s = Serializer('sekrit', expires_in=30) # set token for 30 seconds
+>>> token = s.dumps({'id': 'foobar'})       # get the token of foobar 
+>>> token
+'eyJhbGciOiJIUzI1NiIsImV4cCI6MTQ3OTcxMjkxMCwiaWF0IjoxNDc5NzEyODgwfQ.eyJpZCI6ImZvb2JhciJ9.3aLpg48OGlxPJdYbWCqQXcE8BHwpiuz_LKNLiwvD6kA'
+>>> s.loads(token)
+{u'id': u'foobar'}
+# after 30 second
+>>> s.loads(token)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/Library/Python/2.7/site-packages/itsdangerous.py", line 807, in loads
+    date_signed=self.get_issue_date(header))
+itsdangerous.SignatureExpired: Signature expired
