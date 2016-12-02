@@ -40,3 +40,13 @@ Nginx是一个提供静态文件访问的web服务，然而，它不能直接执
         proxy_pass http://unix:/home/sammy/myproject/myproject.sock;
     }
 }
+
+
+4.  [test]
+
+$ nginx -t
+  nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+  nginx: configuration file /etc/nginx/nginx.conf test is successful
+  
+$ nginx -s reload
+2016/12/02 09:11:57 [notice] 34#34: signal process started
