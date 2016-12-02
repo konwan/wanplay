@@ -29,3 +29,14 @@ Nginx是一个提供静态文件访问的web服务，然而，它不能直接执
 3. [config nginx]
    nginx 的默认网站目录 /usr/share/nginx/html
    /etc/nginx/conf.d/default.conf
+   /etc/nginx/nginx.conf
+   
+   server {
+    listen [port];
+    server_name [server_domain_or_IP];
+
+     location / {
+        include proxy_params;
+        proxy_pass http://unix:/home/sammy/myproject/myproject.sock;
+    }
+}
