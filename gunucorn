@@ -1,0 +1,54 @@
+配置{project}.conf
+在/etc/supervisord/conf目录下配置{project}.conf:
+
+[program:{project}]
+command = gunicorn {project}.wsgi -c {project}/gunicorn_settings.py
+command = gunicorn -c gunicorn.py wsgi:app  ; 启动命令，可以看出与手动在命令行启动的命令是一样的
+directory = /path/to/project
+user = {your user name}
+autostart = true
+autorestart = true
+startsecs = 5  # 程序必须至少正常启动5s才认为启动成功
+startretries = 3  # 失败重启次数
+redirect_stderr = false  # 如果为真, stderr将会被重定向到stdout
+stdout_logfile = /data/supervisord/logs/{project}/app.log
+stdout_logfile_maxbytes = 20MB
+stdout_logfile_backups = 10
+stderr_logfile = /data/supervisord/logs/{project}/app_err.log
+stderr_logfile_maxbytes = 20MB
+stderr_logfile_backups = 10
+
+建立日志目录:
+
+mkdir -p /data/supervisord/logs
+chmod 777 /data/supervisord/logs
+su {your user name}
+mkdir /data/supervisord/logs/{project}
+
+
+
+###########################################################
+
+"""gunicorn WSGI server configuration."""
+from multiprocessing import cpu_count
+from os import environ
+
+
+def max_workers():
+    return cpu_count()
+
+
+#bind = '0.0.0.0:' + environ.get('PORT', '8000')
+#max_requests = 1000
+#worker_class = 'gevent'
+#workers = max_workers()
+
+
+bind = '127.0.0.1:81'
+#workers = 8  # or multiprocessing.cpu_count() * 2 + 1
+#worker_connections = 100
+#worker_class = 'sync'
+#backlog = 2048
+daemon = False #when use supervisor to minitor
+# gunicorn {project}.wsgi -c {project}/gunicorn_settings.py
+gunicorn -c gunicorn.py.ini project.wsgi
