@@ -1,0 +1,16 @@
+现象： shell脚本中source aaa.sh时提示 source: not found
+
+
+原因： ls -l `which sh` 提示/bin/sh -> dash
+
+这说明是用dash来进行解析的。
+
+
+改回方法： 
+命令行执行：sudo dpkg-reconfigure dash
+在界面中选择no
+
+再ls -l `which sh` 提示/bin/sh -> bash
+
+
+修改成功，source可以用了~
