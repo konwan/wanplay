@@ -14,3 +14,12 @@
 
 
 修改成功，source可以用了~
+
+
+
+# # echo $(sed -i "s/^\(SQLALCHEMY_DATABASE_URI.*=\).*$/\1 ${db_str}/g" ${miku_conf})
+# ls -l `which sh`
+# dpkg-reconfigure dash
+# BASEDIR=$(dirname "$0")
+# echo "$BASEDIR"
+# echo $0
