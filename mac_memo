@@ -6,56 +6,24 @@ sudo rm -rf /Library/Frameworks/Python.framework/Versions/3.5
 
 sudo rm -rf "/Applications/Python 3.5"
 
-Remove the symbolic links in /usr/local/bin that point to this Python version see 
-ls -l /usr/local/bin | grep '../Library/Frameworks/Python.framework/Versions/3.5' 
+Remove the symbolic links in /usr/local/bin that point to this Python version see
+ls -l /usr/local/bin | grep '../Library/Frameworks/Python.framework/Versions/3.5'
 
 and then run the following command to remove all the links:
 cd /usr/local/bin/
 ls -l /usr/local/bin | grep '../Library/Frameworks/Python.framework/Versions/3.5' | awk '{print $9}' | tr -d @ | xargs rm
-If necessary, edit your shell profile file(s) to remove adding /Library/Frameworks/Python.framework/Versions/3.5 
-to your PATH environment file. Depending on which shell you use, 
-any of the following files may have been modified: 
+If necessary, edit your shell profile file(s) to remove adding /Library/Frameworks/Python.framework/Versions/3.5
+to your PATH environment file. Depending on which shell you use,
+any of the following files may have been modified:
 ~/.bash_login, ~/.bash_profile, ~/.cshrc, ~/.profile, ~/.tcshrc, and/or ~/.zprofile.
 
 
-
-#[install pyenv]  对 Python 的版本进行管理
-
-http://marshal.ohtly.com/2016/07/15/installing-pyenv-on-mac-os/
-Mac环境下自带python，目前版本是2.7.10。
-在Mac OS下安装，主要参考Homebrew on Mac OS X。
-前提是已经安装了brew。执行两条命令安装：
-brew update
-brew install pyenv
-
-然后，用文本编辑器打开~/.bash_profile文件。我用的是atom(有关atom的基本使用，见使用Atom替代Sublime)，可在命令行下直接：
-atom ~/.bash_profile
-
-然后在该文件末尾加入：
-eval "$(pyenv init -)"
-
-再执行命令重新加载.bash_profile：
-source ~/.bash_profile
-
-pyenv install <version> #安装特定版本的 Python
-当我的系统 Python 版本是 2.7, 但是有个 py3 的專案需要用 Python3 来运行的时候:
-$ cd py3                 #进入项目目录
-$ pyenv local 3.3.0      #将当前目录下的Python环境切换为3.3.0
-$ pyenv version          #运行显示通过pyenv设置之后的python版本, 得到结果是3.3.0 
-$ python --version       #查看Python版本, 得到结果也是3.3.0
-
-$ mkdir myproject
-$ cd myproject
-$ pyenv local venv-3.5.1
-
-pyenv-virtualenv: deactivate
-pyenv-virtualenv: activate venv-3.5.1
 
 
 [install virtualenv] 创建一个虚拟环境, 与系统环境以及其他 Python 环境隔离
 pip install virtualenv
 
-創建項目的虛擬環境 
+創建項目的虛擬環境
 $ mkdir test && cd test
 $ virtualenv new_env
 執行後，在本地會生成一個與虛擬環境同名的文件夾，包含 Python 可執行文件和 pip 庫的拷貝，可用於安裝其他包。
@@ -92,6 +60,3 @@ cdvirtualenv [子目錄名] # 進入當前環境的目錄
 cpvirtualenv [source] [dest] # 複製虛擬環境
 deactivate # 退出虛擬環境
 rmvirtualenv [虛擬環境名稱] # 刪除虛擬環境
-
-
-

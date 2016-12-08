@@ -140,15 +140,3 @@ $ workon env1
 退出虚拟环境就用
 
 $ deactivate
-
-$ mkdir myproject
-$ cd myproject
-$ pyenv local venv-3.5.1
-
-pyenv-virtualenv: deactivate
-pyenv-virtualenv: activate venv-3.5.1
-
-1.创建虚拟环境  pyenv virtualenv system env
-2.創建項目     pyenv local env
-
-http://www.jianshu.com/p/1842a363257c
