@@ -38,3 +38,7 @@ sudo lsof -i :3306
 head -n 200 data210_u8.txt | grep -b '\x00' | head -n 1 |hexdump
 head -n 200 data210_u8.txt | grep -b '\x00' | head -n 1  | sed -e 's/\\x00//g'
 head -n 500 data210_u8.txt | grep -b '\x00' | head -n 1 |tr -d '\0'
+
+
+7.windows send data to linux
+pscp "C:\Users/cindy/Desktop/cindy.txt" cindy@host:/home/cindy
