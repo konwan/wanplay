@@ -36,3 +36,5 @@ sudo lsof -i :3306
 
 6. check file with 16b ornot
 head -n 200 data210_u8.txt | grep -b '\x00' | head -n 1 |hexdump
+head -n 200 data210_u8.txt | grep -b '\x00' | head -n 1  | sed -e 's/\\x00//g'
+head -n 500 data210_u8.txt | grep -b '\x00' | head -n 1 |tr -d '\0'
