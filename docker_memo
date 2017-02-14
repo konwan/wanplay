@@ -88,3 +88,6 @@ and add above config content on the tail
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 
+sudo docker pull jenkins
+docker exec -it jk bash
+sudo docker run -tid  --name jk  jenkins bash
