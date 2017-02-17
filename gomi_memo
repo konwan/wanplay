@@ -40,5 +40,18 @@ head -n 200 data210_u8.txt | grep -b '\x00' | head -n 1  | sed -e 's/\\x00//g'
 head -n 500 data210_u8.txt | grep -b '\x00' | head -n 1 |tr -d '\0'
 
 
-7.windows send data to linux
-pscp "C:\Users/cindy/Desktop/cindy.txt" cindy@host:/home/cindy
+7.windows download data from sqlserver then copy to linux 
+bcp dbo.tbname out "D://somewhere" -T -S 10.10.0.0 -d database_name -w -b5000(批次抓取) -t,
+7za a -tzip D:somewhere/xx.zip D://somewhere/.txt
+pscp -i "D://some.ppk" "C:\Users/cindy/Desktop/cindy.txt" cindy@host:/home/cindy
+del file
+
+8.file encoding
+bcp dump data with utf-16 and null column will encode to '00' 
+so need to grep and sed 
+$ iconv -f UTF-16LE -t UTF8 src.txt > xx.txt
+$ iconv -f utf-16 -t utf-8 src.txt > dt210.txt
+$ head -n 500 dt210.txt | grep -b '\x00' | head -n 1 |tr -d '\0'
+$ tail -n 2 data.txt |hexdump
+0000000 4e 77 6d ab 73 70 74 4a 57 e5 5d 82 53 97 5e 2c
+0000010 00 32 00 30 00 31 00 37 00 30 00 31 00 31 00 36
