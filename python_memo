@@ -9,3 +9,9 @@
     print(A.__dict__)
     print(A().__dict__)
     print(dir(A))
+
+2. formatting
+  '{0}, {1}, {2}'.format('a', 'b', 'c')
+  '{}, {}, {}'.format('a', 'b', 'c')  # 2.7+ only
+  'TEST: {a}, {b}'.format(a='123', b='456')
+  '{:<15}'.format('left aligned')
