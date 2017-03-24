@@ -1,0 +1,22 @@
+#http://www.jinbuguo.com/systemd/systemd.timer.html
+##https://jason.the-graham.com/2013/03/06/how-to-use-systemd-timers/
+########https://cth451.tk/2015/12/04/systemd-timers-summary/
+
+[db_backup.service]
+[Unit]
+ Description=Miku_db Backup
+[Service]
+Type=simple
+ExecStart=sudo sh /home/gomi/kaido/db_backup.sh -t backup
+
+
+[db_backup.timer]
+[Unit]
+Description=Runs miku_db backup daily
+[Timer]
+OnCalendar=*-*-* 12:20:00  #(http://www.jinbuguo.com/systemd/systemd.time.html)
+Unit=/home/gomi/kaito/db_backup.service
+
+
+[put both to /etc/systemd/system]
+cp db_backup.service /etc/systemd/system
