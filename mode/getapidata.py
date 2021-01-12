@@ -47,10 +47,10 @@ if __name__ == "__main__":
     #for i in replacelist:
     #    store.replace(i, "#migo#")
 
-    triumph_list = ["triumph^BeeDees(百貨)", "triumph^Ladies(加盟)", "triumph^Ladies(百貨)", "triumph^sloggi(百貨)", "triumph^Triumph(加盟)", "triumph^Triumph(百貨)", "triumph^Triumph(直營)", "triumph^VALISERE(百貨)"]
+    tri_list = ["tri^BeeDees(百貨)", "tri^Ladies(加盟)", "tri^Ladies(百貨)", "tri^sloggi(百貨)", "tri^Tri(加盟)", "tri^Tri(百貨)", "tri^Tri(直營)", "tri^VALISERE(百貨)"]
 
 
-    for i in triumph_list :
+    for i in tri_list :
 
         try :
             start = datetime.datetime.now()
